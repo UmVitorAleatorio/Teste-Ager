@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+	<constant name="struts.ui.theme" value="simple" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+	<constant name="struts.action.excludePattern" value="/webjars/.*,/h2-console/*" />
+	
+    <package name="br.com.soc.sistema" extends="struts-default" strict-method-invocation="false">
+        <action name="*Exames" class="br.com.soc.sistema.action.exame.ExameAction" method="{1}">
+        	<result name="success">/exame/cadExame_b.jsp</result>
+            <result name="input">/exame/cadExame_i.jsp</result>
+            <result name="update">/exame/cadExame_u.jsp</result>
+        	<result name="redirect" type="redirectAction">todosExames</result>
+            <result name="buscar-funcionarios" type="redirectAction">todosFuncionarios</result>
+        </action>
+
+        <action name="*Funcionarios" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
+            <result name="success">/funcionario/cadFuncionario_b.jsp</result>
+            <result name="input">/funcionario/cadFuncionario_i.jsp</result>
+            <result name="update">/funcionario/cadFuncionario_u.jsp</result>
+            <result name="buscar-exames-funcionarios" type="redirectAction">todosExameDeFunc</result>
+            <result name="redirect" type="redirectAction">todosFuncionarios</result>
+            <result name="buscar-exames" type="redirectAction">todosExames</result>
+        </action>
+
+        <action name="*ExameDeFunc" class="br.com.soc.sistema.action.funcionario.ExameDeFuncionarioAction" method="{1}">
+            <result name="success">/funcionario/cadFuncionario_ex.jsp</result>
+            <result name="input">/funcionario/cadFuncionario_ex_i.jsp</result>
+            <result name="buscar-exames" type="redirectAction">todosExames</result>
+            <result name="buscar-funcionarios" type="redirectAction">todosFuncionarios</result>
+        </action>
+    </package>
+
+</struts>

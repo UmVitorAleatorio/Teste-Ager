@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/exame/cadExame_b.jsp" value="file://$PROJECT_DIR$/src/main/webapp/exame" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/exame/cadExame_u.jsp" value="file://$PROJECT_DIR$/src/main/webapp/exame" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/funcionario/cadFuncionario_b.jsp" value="file://$PROJECT_DIR$/src/main/webapp/funcionario" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/funcionarios/cadFuncionario_b.jsp" value="file://$PROJECT_DIR$/src/main/webapp/funcionarios" />
+      </map>
+    </option>
+  </component>
+</project>
