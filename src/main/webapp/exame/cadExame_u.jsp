@@ -50,7 +50,7 @@
                             </label>
 
                             <div class="col-sm-5">
-                                <s:textfield cssClass="form-control" id="nome" name="exameVo.nome"/>
+                                <s:textfield cssClass="form-control" id="nome" name="exameVo.nome" required="required"/>
                             </div>
                         </div>
                     </div>
@@ -58,13 +58,19 @@
                     <div class="card-footer">
                         <div class="form-row">
                             <button class="btn btn-primary col-sm-4 offset-sm-1">Salvar</button>
-                            <button type="reset" class="btn btn-secondary col-sm-4 offset-sm-2">Limpar Formulario</button>
+                            <button type="button" class="btn btn-secondary col-sm-4 offset-sm-2" onclick="limparFormulario()">Limpar Formulario</button>
                         </div>
                     </div>
                 </div>
             </s:form>
         </div>
 
+        <script>
+            function limparFormulario() {
+                var campoNome = document.getElementById('nome');
+                campoNome.value = '';
+            }
+        </script>
         <script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

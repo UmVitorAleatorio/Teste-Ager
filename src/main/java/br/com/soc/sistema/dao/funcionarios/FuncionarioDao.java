@@ -108,6 +108,7 @@ public class FuncionarioDao extends Dao {
     }
 
     public void excluirPorId(Integer cod) {
+
         StringBuilder query = new StringBuilder("DELETE FROM funcionario ")
                 .append(" WHERE rowid = ?");
 

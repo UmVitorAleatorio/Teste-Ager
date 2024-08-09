@@ -48,6 +48,10 @@ public class ExameDeFuncionarioAction extends Action {
         filtro.setFuncionario(funcionario);
         examesDeFuncionarioVo = business.trazerTodosOsExamesDeFuncionario(filtro);
 
+        for (ExameDeFuncionarioVo exame : examesDeFuncionarioVo.getExamesVo()) {
+            System.out.println("Exame ID: " + exame.getRowid() + " - Interno ID: " + exame.getInternoId());
+        }
+
         return SUCCESS;
     }
 
@@ -76,6 +80,9 @@ public class ExameDeFuncionarioAction extends Action {
     public String editar() {
         System.out.println("O que tem dentro do exameinclusao: "+exameInclusaoVo);
         System.out.println("Tentando ver a data: "+exameInclusaoVo.getData());
+        System.out.println("Mostrando o idInterno: "+idIntenoExameEditar);
+        System.out.println("Mostrando de outra maneira o id interno: "+idIntenoExameExcluir);
+        System.out.println("Mostrando de outra maneira o id interno: "+exameInclusaoVo.getInternoId());
         business.editarExame(exameInclusaoVo, idIntenoExameEditar);
 
         return todos();

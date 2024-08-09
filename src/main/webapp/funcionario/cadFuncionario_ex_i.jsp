@@ -64,8 +64,7 @@
                           </div>
                           <div class="mb-3">
                               <label for="data" class="form-label">Data do Exame</label>
-<%--                              <input type="date" pattern="yyyy-MM-dd" class="form-control" id="data" name="exameInclusaoVo.data" required>--%>
-                              <s:textfield type="date" pattern="yyyy-MM-dd" cssClass="form-control" id="data" name="exameInclusaoVo.data"/>
+                              <s:textfield type="date" pattern="yyyy-MM-dd" cssClass="form-control" id="data" name="exameInclusaoVo.data" required="required"/>
                           </div>
                           <button type="submit" class="btn btn-primary">Adicionar</button>
                     </s:form>

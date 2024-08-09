@@ -40,12 +40,9 @@
                                 <td>${nome}</td>
                                 <td>${dataFormatada}</td>
                                 <td class="text-end">
-                                    <s:url action="editarExameDeFunc" var="editarUrl">
-                                        <s:param name="idInternoExameEditar" value="%{internoId}"/>
-                                    </s:url>
-
-                                    <a href="#" class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#editarExameModal"
-                                       data-rowid="%{internoId}" data-nome="${nome}" data-data="%{data}">
+                                    <a href="#" class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#editarExameModal${internoId}"
+                                       data-rowid="<s:property value='rowid'/>" data-nome="<s:property value='nome'/>" data-data="<s:property value='data'/>"
+                                       data-internoId="<s:property value='internoId'/>">
                                         <s:text name="label.editar"/>
                                     </a>
 
@@ -118,53 +115,59 @@
             </div>
         </s:iterator>
 
-        <div class="modal fade" id="editarExameModal" tabindex="-1" aria-labelledby="editarExameLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editarExameLabel">Editar Exame do Funcionário</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <s:form action="editarExameDeFunc" method="post">
-                            <input type="hidden" name="exameInclusaoVo.rowid" id="exame_id">
+        <s:iterator value="exames">
+            <div class="modal fade" id="editarExameModal${internoId}" tabindex="-1" aria-labelledby="editarExameLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editarExameLabel">Editar Exame do Funcionário</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <s:form action="editarExameDeFunc" method="post">
+                                <input type="hidden" name="exameInclusaoVo.rowid" id="exame_id">
+                                <input type="hidden" name="idIntenoExameEditar" id="idInternoExameEditar"/>
 
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Nome do Exame</label>
-                                <input type="text" class="form-control" id="nome" name="exameInclusaoVo.nome" readonly>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="nome" class="form-label">Nome do Exame</label>
+                                    <input type="text" class="form-control" id="nome" name="exameInclusaoVo.nome" readonly>
+                                </div>
 
-                            <div class="mb-3">
-                                <label for="data" class="form-label">Data do Exame</label>
-                                <input type="date" class="form-control" id="data" name="exameInclusaoVo.data" required>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="data" class="form-label">Data do Exame</label>
+                                    <input type="date" class="form-control" id="data" name="exameInclusaoVo.data" required>
+                                </div>
 
-                            <button type="submit" class="btn btn-primary">Editar</button>
-                        </s:form>
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </s:form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </s:iterator>
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                var editarExameModal = document.getElementById('editarExameModal');
+                var editarExameModal = document.querySelectorAll('.modal.fade');
 
-                editarExameModal.addEventListener('show.bs.modal', function (event) {
-                    var button = event.relatedTarget;  // Botão que acionou o modal
-                    var rowid = button.getAttribute('data-rowid');  // Pega o ID do exame
-                    var nome = button.getAttribute('data-nome');  // Pega o nome do exame
-                    var data = button.getAttribute('data-data');  // Pega a data do exame
+                editarExameModal.forEach(function (modal) {
+                    modal.addEventListener('show.bs.modal', function (event) {
+                        var button = event.relatedTarget;
+                        var rowid = button.getAttribute('data-rowid');
+                        var nome = button.getAttribute('data-nome');
+                        var data = button.getAttribute('data-data');
+                        var internoId = button.getAttribute('data-internoId');
 
-                    // Atualiza os elementos do modal com os dados do exame
-                    var modalTitle = editarExameModal.querySelector('.modal-title');
-                    var inputRowid = editarExameModal.querySelector('#exame_id');
-                    var inputNome = editarExameModal.querySelector('#nome');
-                    var inputData = editarExameModal.querySelector('#data');
+                        var modalBodyInputRowid = modal.querySelector('#exame_id');
+                        var modalBodyInputNome = modal.querySelector('#nome');
+                        var modalBodyInputData = modal.querySelector('#data');
+                        var modalBodyInputInternoId = modal.querySelector('#idInternoExameEditar');
 
-                    inputRowid.value = rowid;
-                    inputNome.value = nome;
-                    inputData.value = data;  // Define a data atual no campo de data
+                        modalBodyInputRowid.value = rowid;
+                        modalBodyInputNome.value = nome;
+                        modalBodyInputData.value = data;
+                        modalBodyInputInternoId.value = internoId;
+                    });
                 });
             });
         </script>

@@ -43,7 +43,7 @@
 							</label>	
 
 							<div class="col-sm-5">
-								<s:textfield cssClass="form-control" id="nome" name="exameVo.nome"/>							
+								<s:textfield cssClass="form-control" id="nome" name="exameVo.nome" required="required"/>
 							</div>	
 						</div>
 					</div>

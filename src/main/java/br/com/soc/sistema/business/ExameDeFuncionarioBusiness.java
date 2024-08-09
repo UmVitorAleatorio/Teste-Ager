@@ -17,7 +17,7 @@ public class ExameDeFuncionarioBusiness {
     }
 
     public ExamesDeFuncionarioVo trazerTodosOsExamesDeFuncionario(ExameDeFuncionarioFilter examesDeFuncionarioFiltro){
-        return dao.listarExamesDeFuncionario(examesDeFuncionarioFiltro);
+        return dao.listarExamesDeFuncionario(examesDeFuncionarioFiltro.getFuncionario().getId());
     }
 
     public void salvarExame(ExameDeFuncionarioVo exameDeFuncionarioVo, FuncionarioVo funcionarioVo) {

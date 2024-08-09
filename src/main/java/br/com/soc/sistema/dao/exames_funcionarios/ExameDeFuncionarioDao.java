@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class ExameDeFuncionarioDao extends Dao {
 
-    public ExamesDeFuncionarioVo listarExamesDeFuncionario(ExameDeFuncionarioFilter examesDeFuncionarioFiltro) {
+    public ExamesDeFuncionarioVo listarExamesDeFuncionario(Integer funcionarioId) {
         StringBuilder query = new StringBuilder("SELECT * FROM v_exames_do_funcionario")
                 .append(" WHERE funcionario_id = ?");
         try (
@@ -19,8 +19,8 @@ public class ExameDeFuncionarioDao extends Dao {
                 PreparedStatement ps = con.prepareStatement(query.toString())) {
 
             int i = 1;
-            System.out.println("SQL param id func: " + examesDeFuncionarioFiltro.getFuncionario().getId());
-            ps.setInt(i++, examesDeFuncionarioFiltro.getFuncionario().getId());
+            System.out.println("SQL param id func: " + funcionarioId);
+            ps.setInt(i++, funcionarioId);
 //            ps.setString(i, "%" + examesDeFuncionarioFiltro.getValorBusca() + "%"); // depois verificar filtragem se necessario
 
             try (ResultSet rs = ps.executeQuery()) {

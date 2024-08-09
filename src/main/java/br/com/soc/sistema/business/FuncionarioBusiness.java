@@ -3,15 +3,18 @@ package br.com.soc.sistema.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.soc.sistema.dao.exames_funcionarios.ExameDeFuncionarioDao;
 import br.com.soc.sistema.dao.funcionarios.FuncionarioDao;
 import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.FuncionarioFilter;
+import br.com.soc.sistema.vo.ExamesDeFuncionarioVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioBusiness {
 
     private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
     private FuncionarioDao dao;
+    public ExameDeFuncionarioDao exameDeFuncionarioDao = new ExameDeFuncionarioDao();
 
     public FuncionarioBusiness() {
         this.dao = new FuncionarioDao();
@@ -63,6 +66,9 @@ public class FuncionarioBusiness {
     }
 
     public void excluirPorId(String codigo) {
+        ExamesDeFuncionarioVo examesDeFuncionarioVo  = exameDeFuncionarioDao.listarExamesDeFuncionario(Integer.parseInt(codigo));
+        examesDeFuncionarioVo.getExamesVo().forEach(exameDeFuncionarioVo -> exameDeFuncionarioDao.excluirExame(exameDeFuncionarioVo.getInternoId()));
+
         try {
             Integer cod = Integer.parseInt(codigo);
             System.out.println("Este é o id: "+codigo);
