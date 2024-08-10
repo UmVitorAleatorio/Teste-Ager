@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.soc.sistema.dao.Dao;
+import br.com.soc.sistema.exception.NaoPodeExcluirException;
 import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameDao extends Dao {
@@ -118,6 +119,26 @@ public class ExameDao extends Dao {
 
 			System.out.println("Número de linhas afetadas: " + aff);
 		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void selectParaExcluir(Integer exameId){
+		StringBuilder query = new StringBuilder("SELECT * FROM v_exames_do_funcionario")
+				.append(" WHERE exame_id = ?");
+
+		try (
+				Connection con = getConexao();
+				PreparedStatement ps = con.prepareStatement(query.toString())){
+
+			System.out.println("SQL param id exame: " + exameId);
+			ps.setInt(1, exameId);
+			try (ResultSet rs = ps.executeQuery()){
+				if(rs.next()){
+					throw new NaoPodeExcluirException();
+				}
+			}
+		}catch (SQLException e){
 			e.printStackTrace();
 		}
 	}

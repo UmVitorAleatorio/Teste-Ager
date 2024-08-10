@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.soc.sistema.dao.exames.ExameDao;
 import br.com.soc.sistema.exception.BusinessException;
+import br.com.soc.sistema.exception.NaoPodeExcluirException;
 import br.com.soc.sistema.filter.ExameFilter;
 import br.com.soc.sistema.vo.ExameVo;
 
@@ -71,6 +72,14 @@ public class ExameBusiness {
 		}
 	}
 
+	public void verificarPorFuncionarios(String codigo) {
+		try {
+			dao.selectParaExcluir(Integer.parseInt(codigo));
+		}catch (NaoPodeExcluirException e){
+			throw new NaoPodeExcluirException();
+		}
+	}
+
 	public void editarPorId(ExameVo exameVo) {
 		System.out.println("chegou o editar o registro");
 		try {
@@ -83,4 +92,5 @@ public class ExameBusiness {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
 	}
+
 }

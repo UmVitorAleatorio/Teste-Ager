@@ -17,6 +17,7 @@
             <result name="input">/exame/cadExame_i.jsp</result>
             <result name="update">/exame/cadExame_u.jsp</result>
         	<result name="redirect" type="redirectAction">todosExames</result>
+            <result name="error">/exame/cadExame_b.jsp</result>
             <result name="buscar-funcionarios" type="redirectAction">todosFuncionarios</result>
         </action>
 

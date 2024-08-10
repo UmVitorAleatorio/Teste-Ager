@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.soc.sistema.business.ExameBusiness;
+import br.com.soc.sistema.exception.NaoPodeExcluirException;
 import br.com.soc.sistema.filter.ExameFilter;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.OpcoesComboBuscarExames;
@@ -60,6 +61,14 @@ public class ExameAction extends Action {
 	public String excluir() {
 		if(exameVo.getRowid() == null)
 			return REDIRECT;
+
+        try {
+			business.verificarPorFuncionarios(exameVo.getRowid());
+		}catch (NaoPodeExcluirException e){
+			todos();
+			addActionError("Você não pode excluir esse exame porque há funcionários ligados a ele.");
+			return ERROR;
+		}
 
 		business.excluirPorId(exameVo.getRowid());
 

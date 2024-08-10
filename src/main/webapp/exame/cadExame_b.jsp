@@ -122,6 +122,31 @@
             </div>
         </s:iterator>
 
+        <div class="modal fade" id="alertaModal" tabindex="-1" aria-labelledby="alertaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertaModalLabel">Erro ao Excluir Exame</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <s:actionerror/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                <s:if test="hasActionErrors()">
+                var alertaModal = new bootstrap.Modal(document.getElementById('alertaModal'));
+                alertaModal.show();
+                </s:if>
+            });
+        </script>
         <script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
