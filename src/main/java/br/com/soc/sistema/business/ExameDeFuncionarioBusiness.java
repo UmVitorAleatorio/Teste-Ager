@@ -2,6 +2,8 @@ package br.com.soc.sistema.business;
 
 import br.com.soc.sistema.dao.exames_funcionarios.ExameDeFuncionarioDao;
 import br.com.soc.sistema.exception.BusinessException;
+import br.com.soc.sistema.exception.NaoPodeAdicionarException;
+import br.com.soc.sistema.exception.NaoPodeExcluirException;
 import br.com.soc.sistema.filter.ExameDeFuncionarioFilter;
 import br.com.soc.sistema.vo.ExameDeFuncionarioVo;
 import br.com.soc.sistema.vo.ExamesDeFuncionarioVo;
@@ -18,6 +20,14 @@ public class ExameDeFuncionarioBusiness {
 
     public ExamesDeFuncionarioVo trazerTodosOsExamesDeFuncionario(ExameDeFuncionarioFilter examesDeFuncionarioFiltro){
         return dao.listarExamesDeFuncionario(examesDeFuncionarioFiltro.getFuncionario().getId());
+    }
+
+    public void verificarData(ExameDeFuncionarioVo exameDeFuncionarioVo, FuncionarioVo funcionarioVo) {
+        try {
+            dao.selectParaAdicionar(exameDeFuncionarioVo, funcionarioVo);
+        }catch (NaoPodeAdicionarException e){
+            throw new NaoPodeExcluirException();
+        }
     }
 
     public void salvarExame(ExameDeFuncionarioVo exameDeFuncionarioVo, FuncionarioVo funcionarioVo) {

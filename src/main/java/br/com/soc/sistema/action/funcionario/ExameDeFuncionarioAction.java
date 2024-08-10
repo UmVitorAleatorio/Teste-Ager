@@ -2,6 +2,7 @@ package br.com.soc.sistema.action.funcionario;
 
 import br.com.soc.sistema.business.ExameBusiness;
 import br.com.soc.sistema.business.ExameDeFuncionarioBusiness;
+import br.com.soc.sistema.exception.NaoPodeExcluirException;
 import br.com.soc.sistema.filter.ExameDeFuncionarioFilter;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.vo.ExameDeFuncionarioVo;
@@ -41,11 +42,24 @@ public class ExameDeFuncionarioAction extends Action {
         this.filtro = filtro;
     }
 
-    public String todos() {
+    public ExameDeFuncionarioFilter mapDaSessaoF() {
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        System.out.println(session.get("funcionario"));
+        FuncionarioVo funcionario = (FuncionarioVo) session.get("funcionario");
+        filtro.setFuncionario(funcionario);
+        return filtro;
+    }
+
+    public ExamesDeFuncionarioVo mapDaSessaoDeFVo() {
         Map<String, Object> session = ActionContext.getContext().getSession();
         System.out.println(session.get("funcionario"));
         FuncionarioVo funcionario = (FuncionarioVo)session.get("funcionario");
-        filtro.setFuncionario(funcionario);
+        examesDeFuncionarioVo.setFuncionarioVo(funcionario);
+        return examesDeFuncionarioVo;
+    }
+
+    public String todos() {
+        mapDaSessaoF();
         examesDeFuncionarioVo = business.trazerTodosOsExamesDeFuncionario(filtro);
 
         for (ExameDeFuncionarioVo exame : examesDeFuncionarioVo.getExamesVo()) {
@@ -56,33 +70,35 @@ public class ExameDeFuncionarioAction extends Action {
     }
 
     public String novo() {
-        Map<String, Object> session = ActionContext.getContext().getSession();
-        System.out.println(session.get("funcionario"));
-        FuncionarioVo funcionario = (FuncionarioVo)session.get("funcionario");
-        filtro.setFuncionario(funcionario);
-        System.out.println(funcionario);
-        System.out.println(funcionario.getNome());
+        mapDaSessaoF();
 
         return INPUT;
     }
 
     public String add() {
-        Map<String, Object> session = ActionContext.getContext().getSession();
-        System.out.println(session.get("funcionario"));
-        FuncionarioVo funcionario = (FuncionarioVo)session.get("funcionario");
-        filtro.setFuncionario(funcionario);
-        examesDeFuncionarioVo.setFuncionarioVo(funcionario);
+        mapDaSessaoDeFVo();
+        try {
+            business.verificarData(exameInclusaoVo, examesDeFuncionarioVo.getFuncionarioVo());
+        }catch (NaoPodeExcluirException e){
+            todos();
+            addActionError("Você não pode adicionar novamente esse exame a este funcionário, para isso altere a data!");
+            return ERROR;
+        }
         business.salvarExame(exameInclusaoVo, examesDeFuncionarioVo.getFuncionarioVo());
 
         return todos();
     }
 
     public String editar() {
-        System.out.println("O que tem dentro do exameinclusao: "+exameInclusaoVo);
-        System.out.println("Tentando ver a data: "+exameInclusaoVo.getData());
-        System.out.println("Mostrando o idInterno: "+idIntenoExameEditar);
-        System.out.println("Mostrando de outra maneira o id interno: "+idIntenoExameExcluir);
-        System.out.println("Mostrando de outra maneira o id interno: "+exameInclusaoVo.getInternoId());
+        try {
+            mapDaSessaoDeFVo();
+            System.out.println("TESTEEEEE: "+examesDeFuncionarioVo);
+            business.verificarData(exameInclusaoVo, examesDeFuncionarioVo.getFuncionarioVo());
+        }catch (NaoPodeExcluirException e){
+            todos();
+            addActionError("Você não pode adicionar novamente esse exame a este funcionário, para isso altere a data!");
+            return ERROR;
+        }
         business.editarExame(exameInclusaoVo, idIntenoExameEditar);
 
         return todos();

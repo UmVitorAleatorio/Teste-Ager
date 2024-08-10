@@ -1,6 +1,8 @@
 package br.com.soc.sistema.dao.exames_funcionarios;
 
 import br.com.soc.sistema.dao.Dao;
+import br.com.soc.sistema.exception.NaoPodeAdicionarException;
+import br.com.soc.sistema.exception.NaoPodeExcluirException;
 import br.com.soc.sistema.filter.ExameDeFuncionarioFilter;
 import br.com.soc.sistema.vo.ExameDeFuncionarioVo;
 import br.com.soc.sistema.vo.ExamesDeFuncionarioVo;
@@ -52,6 +54,29 @@ public class ExameDeFuncionarioDao extends Dao {
         }
         System.out.println("Sem exames do funcionario");
         return new ExamesDeFuncionarioVo();
+    }
+
+    public void selectParaAdicionar(ExameDeFuncionarioVo exameDeFuncionarioVo, FuncionarioVo funcionarioVo) {
+        StringBuilder query = new StringBuilder("SELECT * FROM v_exames_do_funcionario")
+                .append(" WHERE exame_id = ? AND funcionario_id = ? AND data = ?");
+
+        try (
+                Connection con = getConexao();
+                PreparedStatement ps = con.prepareStatement(query.toString())){
+
+            int i = 1;
+            ps.setInt(i++, Integer.parseInt(exameDeFuncionarioVo.getRowid()));
+            ps.setInt(i++, Integer.parseInt(funcionarioVo.getRowid()));
+            ps.setDate(i, Date.valueOf(exameDeFuncionarioVo.getData()));
+
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    throw new NaoPodeAdicionarException();
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public void insertExame(ExameDeFuncionarioVo exameDeFuncionarioVo, FuncionarioVo funcionarioVo) {
