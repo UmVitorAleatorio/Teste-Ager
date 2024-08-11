@@ -131,14 +131,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="alertaModalLabel">Erro ao Excluir Exame</h5>
+                        <h5 class="modal-title" id="alertaModalLabel"><s:text name="label.alert.erro.excluir.exame"/></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <s:actionerror/>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><s:text name="label.fechar.alerta.exame"/></button>
                     </div>
                 </div>
             </div>

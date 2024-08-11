@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Relatório de Exames</title>
+    <title><s:text name="label.titulo.pagina.relatorio"/></title>
     <link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
     <body class="bg-secondary">
@@ -19,12 +19,12 @@
                 <div class="col-sm p-0">
                     <s:form action="filtrarRelatorios" method="post">
                         <div class="row">
-                            <div class="col-md-5 text-center">
-                                <label for="dataInicial" class="form-label">Data Inicial</label>
+                            <div class="col-md-5 text-center text-light">
+                                <label for="dataInicial" class="form-label"><s:text name="label.data.de"/></label>
                             </div>
                             <div class="col-md-2"></div>
-                            <div class="col-md-5 text-center">
-                                <label for="dataFinal" class="form-label">Data Final</label>
+                            <div class="col-md-5 text-center text-light">
+                                <label for="dataFinal" class="form-label"><s:text name="label.data.ate"/></label>
                             </div>
                         </div>
                         <div class="row align-items-center">
@@ -48,11 +48,11 @@
                 <table class="table table-light table-striped align-middle">
                     <thead>
                         <tr>
-                            <th>ID Funcionário</th>
-                            <th>Nome Funcionário</th>
-                            <th>ID Exame</th>
-                            <th>Nome Exame</th>
-                            <th>Data de Realização</th>
+                            <th><s:text name="label.id.funcionario"/></th>
+                            <th><s:text name="label.nome.funcionario"/></th>
+                            <th><s:text name="label.id.exame"/></th>
+                            <th><s:text name="label.nome.exame"/></th>
+                            <th><s:text name="label.data.exame"/></th>
                         </tr>
                     </thead>
 
@@ -74,7 +74,7 @@
                                 <s:url action="montarRelatorios" var="excelUrl"/>
 
                                 <a href="${excelUrl}" class="btn btn-success">
-                                    Baixar Relatório em Excel
+                                    <s:text name="label.baixar.relatorio"/>
                                 </a>
                             </td>
                         </tr>

@@ -120,7 +120,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editarExameLabel">Editar Exame do Funcionário</h5>
+                            <h5 class="modal-title" id="editarExameLabel"><s:text name="label.titulo.modal.exame.funcionario"/></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -129,16 +129,16 @@
                                 <input type="hidden" name="idIntenoExameEditar" id="idInternoExameEditar"/>
 
                                 <div class="mb-3">
-                                    <label for="nome" class="form-label">Nome do Exame</label>
+                                    <label for="nome" class="form-label"><s:text name="label.nome.do.exame"/></label>
                                     <input type="text" class="form-control" id="nome" name="exameInclusaoVo.nome" readonly>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="data" class="form-label">Data do Exame</label>
+                                    <label for="data" class="form-label"><s:text name="label.data.do.exame"/></label>
                                     <input type="date" class="form-control" id="data" name="exameInclusaoVo.data" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Editar</button>
+                                <button type="submit" class="btn btn-primary"><s:text name="label.editar"/></button>
                             </s:form>
                         </div>
                     </div>

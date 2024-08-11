@@ -17,11 +17,11 @@
 						<div class="row">
 							<div class="col-sm-5">
 								<s:url action="todosExames" var="todos"/>
-								<a href="${todos}" class="btn btn-success" >Exames</a>
+								<a href="${todos}" class="btn btn-success" ><s:text name="label.exames"/></a>
 							</div>
 							
 							<div class="col-sm">
-								<h5 class="card-title">Novo Exame</h5>
+								<h5 class="card-title"><s:text name="label.titulo.corpo.cadastro.exame"/></h5>
 							</div>
 						</div>
 					</div>
@@ -29,7 +29,7 @@
 					<div class="card-body">
 						<div class="row align-items-center">
 							<label for="id" class="col-sm-1 col-form-label text-center">
-								Código:
+								<s:text name="label.corpo.codigo"/>
 							</label>	
 
 							<div class="col-sm-2">
@@ -39,7 +39,7 @@
 						
 						<div class="row align-items-center mt-3">
 							<label for="nome" class="col-sm-1 col-form-label text-center">
-								Nome:
+								<s:text name="label.corpo.nome"/>
 							</label>	
 
 							<div class="col-sm-5">
@@ -50,8 +50,8 @@
 
 					<div class="card-footer">
 						<div class="form-row">
-							<button class="btn btn-primary col-sm-4 offset-sm-1">Salvar</button>
-							<button type="reset" class="btn btn-secondary col-sm-4 offset-sm-2">Limpar Formulario</button>
+							<button class="btn btn-primary col-sm-4 offset-sm-1"><s:text name="label.salvar.formulario"/></button>
+							<button type="reset" class="btn btn-secondary col-sm-4 offset-sm-2"><s:text name="label.limpar.formulario"/></button>
 						</div>
 					</div>
 				</div>
