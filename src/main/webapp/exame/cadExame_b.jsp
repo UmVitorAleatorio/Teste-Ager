@@ -138,7 +138,7 @@
                         <s:actionerror/>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><s:text name="label.fechar.alerta.exame"/></button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><s:text name="label.fechar.alerta"/></button>
                     </div>
                 </div>
             </div>
