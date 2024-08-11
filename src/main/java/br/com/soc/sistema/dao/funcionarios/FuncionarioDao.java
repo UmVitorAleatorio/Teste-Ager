@@ -28,7 +28,6 @@ public class FuncionarioDao extends Dao {
     }
 
     public List<FuncionarioVo> findAllFuncionarios() {
-        System.out.println("To no find all funcionarios");
         StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario");
         try (
             Connection con = getConexao();
@@ -108,7 +107,6 @@ public class FuncionarioDao extends Dao {
     }
 
     public void excluirPorId(Integer cod) {
-
         StringBuilder query = new StringBuilder("DELETE FROM funcionario ")
                 .append(" WHERE rowid = ?");
 
@@ -117,16 +115,14 @@ public class FuncionarioDao extends Dao {
 
             int i = 1;
             ps.setInt(i, cod);
-            int aff = ps.executeUpdate();
+            ps.executeUpdate();
 
-            System.out.println("Número de linhas afetadas: " + aff);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void updateFuncionario(FuncionarioVo funcionarioVo) {
-        System.out.println("entrou o update");
         StringBuilder query = new StringBuilder("UPDATE funcionario SET nm_funcionario = ? where rowid = ?");
 
         try(Connection con = getConexao();
@@ -135,9 +131,8 @@ public class FuncionarioDao extends Dao {
             int i = 1;
             ps.setString(i++, funcionarioVo.getNome());
             ps.setInt(i, Integer.parseInt(funcionarioVo.getRowid()));
-            int erw = ps.executeUpdate();
 
-            System.out.println("Número de linhas editadas: " + erw);
+            ps.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
         }

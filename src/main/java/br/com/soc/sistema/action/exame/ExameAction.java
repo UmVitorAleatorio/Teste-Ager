@@ -78,6 +78,10 @@ public class ExameAction extends Action {
 	public String navegarFuncionarios(){
 		return NAVEGAR_FUNCIONARIOS;
 	}
+
+	public String navegarRelatorios(){
+		return NAVEGAR_RELATORIOS;
+	}
 	
 	public List<OpcoesComboBuscarExames> getListaOpcoesCombo(){
 		return Arrays.asList(OpcoesComboBuscarExames.values());

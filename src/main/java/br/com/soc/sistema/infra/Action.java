@@ -8,4 +8,5 @@ public class Action extends ActionSupport {
 	public static final String EXAME = "buscar-exames-funcionarios";
 	public static final String NAVEGAR_FUNCIONARIOS = "buscar-funcionarios";
 	public static final String NAVEGAR_EXAMES = "buscar-exames";
+	public static final String NAVEGAR_RELATORIOS = "navegar-relatorios";
 }

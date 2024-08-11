@@ -81,12 +81,10 @@ public class ExameBusiness {
 	}
 
 	public void editarPorId(ExameVo exameVo) {
-		System.out.println("chegou o editar o registro");
 		try {
 			if(exameVo.getNome().isEmpty())
 				throw new IllegalArgumentException("Nome nao pode ser em branco");
 
-			System.out.println("funcionou o try");
 			dao.updateExame(exameVo);
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");

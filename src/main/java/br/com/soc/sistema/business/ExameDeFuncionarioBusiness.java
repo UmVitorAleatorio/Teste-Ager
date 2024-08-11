@@ -9,6 +9,9 @@ import br.com.soc.sistema.vo.ExameDeFuncionarioVo;
 import br.com.soc.sistema.vo.ExamesDeFuncionarioVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class ExameDeFuncionarioBusiness {
 
     private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
@@ -31,23 +34,17 @@ public class ExameDeFuncionarioBusiness {
     }
 
     public void salvarExame(ExameDeFuncionarioVo exameDeFuncionarioVo, FuncionarioVo funcionarioVo) {
-        System.out.println("Cheguei no salvarExames");
-        System.out.println("Esse é o funcionario: "+funcionarioVo);
         try {
             if(funcionarioVo.getNome().isEmpty())
                 throw new IllegalArgumentException("Nome nao pode ser em branco");
 
-
-            System.out.println("Entrando no insert: "+exameDeFuncionarioVo+", "+funcionarioVo);
             dao.insertExame(exameDeFuncionarioVo, funcionarioVo);
         } catch (Exception e) {
-            System.out.println("Rodei uma exception ai");
             throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
         }
     }
 
     public void editarExame(ExameDeFuncionarioVo exameDeFuncionarioVo, String idIntenoExameEditar) {
-        System.out.println("Cheguei no Editar");
         try {
             if(idIntenoExameEditar == null || idIntenoExameEditar.isEmpty())
                 throw new IllegalArgumentException("Nome nao pode ser em branco");
@@ -59,7 +56,6 @@ public class ExameDeFuncionarioBusiness {
     }
 
     public void excluirExame(String idIntenoExameExcluir) {
-        System.out.println("Cheguei no Excluir");
         try {
             if(idIntenoExameExcluir == null || idIntenoExameExcluir.isEmpty())
                 throw new IllegalArgumentException("Nome nao pode ser em branco");
@@ -69,4 +65,13 @@ public class ExameDeFuncionarioBusiness {
             throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
         }
     }
+
+    public List<ExameDeFuncionarioVo> listarTodos() {
+        return dao.listarTodos();
+    }
+
+    public List<ExameDeFuncionarioVo> buscarTodosEntreDatas(LocalDate de, LocalDate ate) {
+        return dao.buscarTodosEntreDatas(de,ate);
+    }
+
 }

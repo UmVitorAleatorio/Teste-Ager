@@ -9,6 +9,11 @@ CREATE TABLE exame_funcionario (rowid bigint auto_increment primary key, exame_i
     FOREIGN KEY (funcionario_id) references funcionario(rowid)
 );
 INSERT INTO exame_funcionario (exame_id, funcionario_id, data) VALUES (1, 1, '2024-08-05');
+INSERT INTO exame_funcionario (exame_id, funcionario_id, data) VALUES (1, 2, '2024-08-06');
+INSERT INTO exame_funcionario (exame_id, funcionario_id, data) VALUES (1, 3, '2024-08-07');
+INSERT INTO exame_funcionario (exame_id, funcionario_id, data) VALUES (4, 1, '2024-08-08');
+INSERT INTO exame_funcionario (exame_id, funcionario_id, data) VALUES (2, 4, '2024-08-09');
+INSERT INTO exame_funcionario (exame_id, funcionario_id, data) VALUES (3, 2, '2024-08-10');
 
 CREATE VIEW v_exames_do_funcionario
 AS

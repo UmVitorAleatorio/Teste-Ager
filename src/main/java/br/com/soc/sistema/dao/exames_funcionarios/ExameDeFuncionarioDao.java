@@ -2,14 +2,14 @@ package br.com.soc.sistema.dao.exames_funcionarios;
 
 import br.com.soc.sistema.dao.Dao;
 import br.com.soc.sistema.exception.NaoPodeAdicionarException;
-import br.com.soc.sistema.exception.NaoPodeExcluirException;
-import br.com.soc.sistema.filter.ExameDeFuncionarioFilter;
 import br.com.soc.sistema.vo.ExameDeFuncionarioVo;
 import br.com.soc.sistema.vo.ExamesDeFuncionarioVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExameDeFuncionarioDao extends Dao {
 
@@ -23,7 +23,6 @@ public class ExameDeFuncionarioDao extends Dao {
             int i = 1;
             System.out.println("SQL param id func: " + funcionarioId);
             ps.setInt(i++, funcionarioId);
-//            ps.setString(i, "%" + examesDeFuncionarioFiltro.getValorBusca() + "%"); // depois verificar filtragem se necessario
 
             try (ResultSet rs = ps.executeQuery()) {
                 ExamesDeFuncionarioVo vo = new ExamesDeFuncionarioVo();
@@ -46,13 +45,11 @@ public class ExameDeFuncionarioDao extends Dao {
                     vo.getExamesVo().add(exameDeFuncionarioVo);
                 }
 
-                System.out.println("Consulta realizada com dados: " + vo);
                 return vo;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Sem exames do funcionario");
         return new ExamesDeFuncionarioVo();
     }
 
@@ -123,5 +120,64 @@ public class ExameDeFuncionarioDao extends Dao {
         }catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<ExameDeFuncionarioVo> listarTodos() {
+        String sql = "SELECT * FROM v_exames_do_funcionario ORDER BY data";
+
+        List<ExameDeFuncionarioVo> exames = new ArrayList<>();
+        try (
+                Connection con = getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()){
+                while(rs.next()) {
+                    ExameDeFuncionarioVo exameDeFuncionarioVo = new ExameDeFuncionarioVo();
+                    exameDeFuncionarioVo.setInternoId(rs.getString("interno_id"));
+                    exameDeFuncionarioVo.setNome(rs.getString("exame_nome"));
+                    exameDeFuncionarioVo.setRowid(rs.getString("exame_id"));
+                    exameDeFuncionarioVo.setData(rs.getString("data"));
+                    exameDeFuncionarioVo.setFuncionarioId(rs.getInt("funcionario_id"));
+                    exameDeFuncionarioVo.setFuncionarioNome(rs.getString("funcionario_nome"));
+
+                    exames.add(exameDeFuncionarioVo);
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return exames;
+    }
+
+    public List<ExameDeFuncionarioVo> buscarTodosEntreDatas(LocalDate de, LocalDate ate) {
+        String sql = "SELECT * FROM v_exames_do_funcionario WHERE data BETWEEN ? AND ? ORDER BY data";
+
+        List<ExameDeFuncionarioVo> exames = new ArrayList<>();
+        try (
+                Connection con = getConexao();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            int i = 1;
+            ps.setDate(i++, Date.valueOf(de));
+            ps.setDate(i, Date.valueOf(ate));
+            try (ResultSet rs = ps.executeQuery()){
+                while(rs.next()) {
+                    ExameDeFuncionarioVo exameDeFuncionarioVo = new ExameDeFuncionarioVo();
+                    exameDeFuncionarioVo.setInternoId(rs.getString("interno_id"));
+                    exameDeFuncionarioVo.setNome(rs.getString("exame_nome"));
+                    exameDeFuncionarioVo.setRowid(rs.getString("exame_id"));
+                    exameDeFuncionarioVo.setData(rs.getString("data"));
+                    exameDeFuncionarioVo.setFuncionarioId(rs.getInt("funcionario_id"));
+                    exameDeFuncionarioVo.setFuncionarioNome(rs.getString("funcionario_nome"));
+
+                    exames.add(exameDeFuncionarioVo);
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return exames;
     }
 }

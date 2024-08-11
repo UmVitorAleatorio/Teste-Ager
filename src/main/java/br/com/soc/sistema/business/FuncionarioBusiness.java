@@ -71,7 +71,6 @@ public class FuncionarioBusiness {
 
         try {
             Integer cod = Integer.parseInt(codigo);
-            System.out.println("Este é o id: "+codigo);
             dao.excluirPorId(cod);
         }catch (NumberFormatException e) {
             throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);

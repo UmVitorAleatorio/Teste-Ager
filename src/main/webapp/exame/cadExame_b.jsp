@@ -90,6 +90,11 @@
                     <s:text name="label.ir.funcionarios"/>
                 </a>
 
+                <s:url action="iniciarRelatorios" var="relatorios"/>
+
+                <a href="${relatorios}" class="btn btn-success">
+                    <s:text name="label.ir.relatorios"/>
+                </a>
             </div>
         </div>
 

@@ -19,6 +19,7 @@
         	<result name="redirect" type="redirectAction">todosExames</result>
             <result name="error">/exame/cadExame_b.jsp</result>
             <result name="buscar-funcionarios" type="redirectAction">todosFuncionarios</result>
+            <result name="navegar-relatorios" type="redirectAction">iniciarRelatorios</result>
         </action>
 
         <action name="*Funcionarios" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
@@ -36,6 +37,10 @@
             <result name="buscar-exames" type="redirectAction">todosExames</result>
             <result name="error">/funcionario/cadFuncionario_ex_i.jsp</result>
             <result name="buscar-funcionarios" type="redirectAction">todosFuncionarios</result>
+        </action>
+
+        <action name="*Relatorios" class="br.com.soc.sistema.action.relatorio.RelatorioAction" method="{1}">
+            <result name="success">/relatorio/relatorio.jsp</result>
         </action>
     </package>
 

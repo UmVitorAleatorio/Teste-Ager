@@ -21,7 +21,7 @@ public class ExameDao extends Dao {
 			PreparedStatement  ps = con.prepareStatement(query.toString())){
 			
 			int i=1;
-			ps.setString(i++, exameVo.getNome());
+			ps.setString(i, exameVo.getNome());
 			ps.executeUpdate();
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -115,9 +115,8 @@ public class ExameDao extends Dao {
 			PreparedStatement  ps = con.prepareStatement(query.toString())){
 			int i = 1;
 			ps.setInt(i, cod);
-			int aff = ps.executeUpdate();
+			ps.executeUpdate();
 
-			System.out.println("Número de linhas afetadas: " + aff);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -131,7 +130,6 @@ public class ExameDao extends Dao {
 				Connection con = getConexao();
 				PreparedStatement ps = con.prepareStatement(query.toString())){
 
-			System.out.println("SQL param id exame: " + exameId);
 			ps.setInt(1, exameId);
 			try (ResultSet rs = ps.executeQuery()){
 				if(rs.next()){
@@ -144,7 +142,6 @@ public class ExameDao extends Dao {
 	}
 
 	public void updateExame(ExameVo exameVo) {
-		System.out.println("entrou o update");
 		StringBuilder query = new StringBuilder("UPDATE exame SET nm_exame = ? where rowid = ?");
 
 		try(Connection con = getConexao();
@@ -153,9 +150,8 @@ public class ExameDao extends Dao {
 			int i = 1;
 			ps.setString(i++, exameVo.getNome());
 			ps.setInt(i, Integer.parseInt(exameVo.getRowid()));
-			int erw = ps.executeUpdate();
+			ps.executeUpdate();
 
-			System.out.println("Número de linhas editadas: " + erw);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -44,7 +44,6 @@ public class ExameDeFuncionarioAction extends Action {
 
     public ExameDeFuncionarioFilter mapDaSessaoF() {
         Map<String, Object> session = ActionContext.getContext().getSession();
-        System.out.println(session.get("funcionario"));
         FuncionarioVo funcionario = (FuncionarioVo) session.get("funcionario");
         filtro.setFuncionario(funcionario);
         return filtro;
@@ -52,7 +51,6 @@ public class ExameDeFuncionarioAction extends Action {
 
     public ExamesDeFuncionarioVo mapDaSessaoDeFVo() {
         Map<String, Object> session = ActionContext.getContext().getSession();
-        System.out.println(session.get("funcionario"));
         FuncionarioVo funcionario = (FuncionarioVo)session.get("funcionario");
         examesDeFuncionarioVo.setFuncionarioVo(funcionario);
         return examesDeFuncionarioVo;
@@ -61,10 +59,6 @@ public class ExameDeFuncionarioAction extends Action {
     public String todos() {
         mapDaSessaoF();
         examesDeFuncionarioVo = business.trazerTodosOsExamesDeFuncionario(filtro);
-
-        for (ExameDeFuncionarioVo exame : examesDeFuncionarioVo.getExamesVo()) {
-            System.out.println("Exame ID: " + exame.getRowid() + " - Interno ID: " + exame.getInternoId());
-        }
 
         return SUCCESS;
     }
@@ -92,7 +86,6 @@ public class ExameDeFuncionarioAction extends Action {
     public String editar() {
         try {
             mapDaSessaoDeFVo();
-            System.out.println("TESTEEEEE: "+examesDeFuncionarioVo);
             business.verificarData(exameInclusaoVo, examesDeFuncionarioVo.getFuncionarioVo());
         }catch (NaoPodeExcluirException e){
             todos();
@@ -111,12 +104,10 @@ public class ExameDeFuncionarioAction extends Action {
     }
 
     public List<ExameDeFuncionarioVo> getExames() {
-        System.out.println("Exames de Funcionario sendo listado pela tela");
         return examesDeFuncionarioVo.getExamesVo();
     }
 
     public List<ExameVo> getExamesCadastrados() {
-        System.out.println("Buscando exames da base");
         return exameBusiness.trazerTodosOsExames();
     }
 
